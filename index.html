@@ -3,423 +3,505 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangkok Family Trip | March 2026</title>
+    <title>Our Bangkok Adventure! 🇹🇭✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #0d9488;
-            --primary-light: #14b8a6;
-            --bg-color: #f3f4f6;
+            /* Cute Pastel Palette */
+            --primary: #ff8fa3;       /* Soft Pink */
+            --primary-dark: #ff6b81;  /* Darker Pink */
+            --accent: #ffc75f;        /* Soft Yellow */
+            --bg-color: #fff0f3;      /* Very light pink bg */
             --card-bg: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
+            --text-main: #5d5d5d;     /* Softer Gray */
+            --text-light: #8a8a8a;
+            --success: #84dcc6;       /* Mint Green */
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Quicksand', sans-serif; /* Rounded, friendly font */
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
+            background-image: radial-gradient(#ffe3e8 15%, transparent 16%), radial-gradient(#ffe3e8 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
         }
 
+        /* Header Section */
         header {
-            background: linear-gradient(135deg, var(--primary), #0f766e);
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
             color: white;
-            padding: 3rem 1rem;
+            padding: 3.5rem 1rem 2.5rem;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: -2rem auto 2rem;
-            padding: 0 1rem;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            box-shadow: 0 10px 20px rgba(255, 107, 129, 0.15);
+            margin-bottom: 2rem;
             position: relative;
         }
 
-        /* Navigation Tabs */
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            margin-bottom: 0.5rem;
+        }
+
+        header .subtitle {
+            background: rgba(255, 255, 255, 0.25);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Floating Navigation Tabs */
         .tabs {
             display: flex;
+            justify-content: space-between;
             background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 1.5rem;
+            border-radius: 50px;
+            padding: 0.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 1rem;
+            padding: 0.8rem 0.5rem;
             border: none;
             background: transparent;
             font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-muted);
+            font-weight: 700;
+            color: var(--text-light);
             cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 40px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
         }
 
         .tab-btn:hover {
-            color: var(--primary);
-            background: #f0fdfa;
+            color: var(--primary-dark);
+            background: #fff5f7;
         }
 
         .tab-btn.active {
-            color: var(--primary);
-            border-bottom: 3px solid var(--primary);
-            background: #f0fdfa;
+            color: white;
+            background: var(--primary);
+            box-shadow: 0 4px 12px rgba(255, 143, 163, 0.4);
+            transform: scale(1.05);
         }
 
-        /* Content Sections */
+        /* Content Animations */
         .tab-content {
             display: none;
-            animation: fadeIn 0.4s ease;
+            animation: slideUp 0.5s ease;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Cards */
+        /* Cute Cards */
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 25px rgba(200, 200, 200, 0.1);
+            border: 2px solid white;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
         }
 
         .card h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            border-bottom: 2px solid #f3f4f6;
-            padding-bottom: 0.5rem;
+            gap: 0.8rem;
         }
 
-        /* Itinerary Timeline */
+        .card h3 i {
+            background: #fff0f3;
+            padding: 10px;
+            border-radius: 50%;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Timeline Styling */
         .timeline-item {
-            border-left: 3px solid var(--primary-light);
-            padding-left: 1.5rem;
-            margin-bottom: 1.5rem;
             position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            border-left: 3px dashed #ffd1dc;
+        }
+
+        .timeline-item:last-child {
+            border-left: none;
+            margin-bottom: 0;
         }
 
         .timeline-item::before {
-            content: '';
+            content: '🌸'; /* Cute Emoji Bullet */
             position: absolute;
-            left: -8px;
-            top: 5px;
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: var(--primary);
+            left: -14px;
+            top: 0;
+            background: var(--card-bg);
+            font-size: 1.2rem;
         }
 
         .time-badge {
-            display: inline-block;
-            background: #f0fdfa;
-            color: var(--primary);
-            padding: 0.2rem 0.6rem;
+            background: var(--accent);
+            color: #7a5c15;
+            padding: 0.3rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
             margin-bottom: 0.5rem;
+            box-shadow: 0 2px 5px rgba(255, 199, 95, 0.3);
         }
 
-        /* Checklist */
+        .timeline-item strong {
+            display: block;
+            font-size: 1.1rem;
+            color: #4a4a4a;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Interactive Checklist */
         .check-item {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 0.8rem;
-            border-radius: 8px;
-            transition: background 0.2s;
+            padding: 1rem;
+            border-radius: 16px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
             cursor: pointer;
+            border: 1px solid transparent;
         }
 
         .check-item:hover {
-            background: #f9fafb;
+            background: #f8f9fa;
+            border-color: #eee;
         }
 
         .check-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--primary);
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            position: relative;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .check-item input[type="checkbox"]:checked {
+            background: var(--primary);
+        }
+
+        .check-item input[type="checkbox"]:checked::after {
+            content: '✔';
+            color: white;
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            font-size: 14px;
         }
 
         .check-item span {
             font-size: 1.05rem;
-            transition: color 0.2s, text-decoration 0.2s;
+            font-weight: 600;
+            color: var(--text-main);
         }
 
         .check-item input[type="checkbox"]:checked + span {
             text-decoration: line-through;
-            color: var(--text-muted);
+            color: #ccc;
         }
 
-        /* Highlights */
-        .highlight {
-            background: #fffbeb;
-            border-left: 4px solid #f59e0b;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 0 8px 8px 0;
+        /* Highlights & Tips */
+        .highlight-box {
+            background: #e0f7fa;
+            border-radius: 16px;
+            padding: 1.2rem;
+            color: #006064;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1rem;
         }
 
+        /* Mobile Adjustments */
         @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
             .tab-btn span { display: none; }
-            .tab-btn i { font-size: 1.2rem; }
+            .tab-btn i { font-size: 1.3rem; margin: 0; }
+            .card { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Bangkok Family Trip</h1>
-        <p><i class="far fa-calendar-alt"></i> March 1 - 5, 2026 • 4 Pax</p>
+        <h1>Bangkok Family Trip 🐘</h1>
+        <div class="subtitle">
+            <i class="far fa-calendar-alt"></i> March 1 - 5, 2026 • 4 Pax
+        </div>
     </header>
 
     <div class="container">
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('itinerary')">
-                <i class="fas fa-map-marked-alt"></i>
-                <span>Itinerary</span>
+                <i class="fas fa-map-marked-alt"></i> <span>Itinerary</span>
             </button>
             <button class="tab-btn" onclick="switchTab('logistics')">
-                <i class="fas fa-subway"></i>
-                <span>Logistics</span>
+                <i class="fas fa-bus"></i> <span>Travel Info</span>
             </button>
             <button class="tab-btn" onclick="switchTab('stay')">
-                <i class="fas fa-hotel"></i>
-                <span>Stay</span>
+                <i class="fas fa-bed"></i> <span>Hotels</span>
             </button>
             <button class="tab-btn" onclick="switchTab('checklist')">
-                <i class="fas fa-clipboard-check"></i>
-                <span>Checklist</span>
+                <i class="fas fa-clipboard-check"></i> <span>Packing</span>
             </button>
         </div>
 
         <div id="itinerary" class="tab-content active">
+            
             <div class="card">
-                <h3><i class="fas fa-sun"></i> Day 1: Sunday, March 1</h3>
+                <h3><i class="fas fa-sun"></i> Day 1: Sunday Funday</h3>
                 <div class="timeline-item">
                     <div class="time-badge">Afternoon</div>
-                    <strong>Arrival & Check-in</strong>
-                    <p>Arrive at the airport. Take a Grab/Bolt or Airport Rail Link to your hotel.</p>
+                    <strong>🛬 Touchdown Bangkok!</strong>
+                    <p>Check-in and refresh. Take the Airport Link or Grab to the hotel.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">4:00 PM</div>
-                    <strong>Chatuchak Weekend Market</strong>
-                    <p>Catch the world's largest weekend market before it closes for the week.</p>
+                    <strong>🛍️ Chatuchak Weekend Market</strong>
+                    <p>The world's biggest market! Great for cute clothes and souvenirs.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">Dinner</div>
-                    <strong>Market Street Food</strong>
-                    <p>Share Moo Ping (grilled pork skewers) and a family portion of Pad Kra Pao right in the market.</p>
+                    <strong>🍢 Street Food Feast</strong>
+                    <p>Try "Moo Ping" (pork skewers) and coconut ice cream!</p>
                 </div>
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-microchip"></i> Day 2: Monday, March 2</h3>
+                <h3><i class="fas fa-camera-retro"></i> Day 2: Culture & Chinatown</h3>
                 <div class="timeline-item">
                     <div class="time-badge">10:00 AM</div>
-                    <strong>Mega Plaza Saphan Lek</strong>
-                    <p>Explore this multi-story tech haven packed with retro hardware, RC components, and unique electronic gadgets.</p>
+                    <strong>🤖 Mega Plaza Saphan Lek</strong>
+                    <p>Toy heaven! Vintage cameras, figures, and cool gadgets.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">2:30 PM</div>
-                    <strong>Wat Pho & Wat Arun</strong>
-                    <p>Take a Tuk-Tuk to see the Reclining Buddha, then a 5-baht cross-river ferry to the Temple of Dawn.</p>
+                    <strong>🏯 Temple Hopping</strong>
+                    <p>Wat Pho (Reclining Buddha) & Wat Arun (Temple of Dawn) by river boat.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">6:30 PM</div>
-                    <strong>Chinatown (Yaowarat)</strong>
-                    <p>The street transforms into a massive food hub. Share Kuay Jab and toasted pandan buns.</p>
+                    <strong>🍜 Chinatown (Yaowarat)</strong>
+                    <p>Famous street food night! Don't miss the toasted buns.</p>
                 </div>
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-flag-checkered"></i> Day 3: Tuesday, March 3</h3>
+                <h3><i class="fas fa-gamepad"></i> Day 3: Fun & Food</h3>
                 <div class="timeline-item">
                     <div class="time-badge">10:00 AM</div>
-                    <strong>E-Gokart by MONOWHEEL</strong>
-                    <p>Race high-torque electric go-karts. A highly competitive and fun group activity.</p>
+                    <strong>🏎️ E-Gokart Racing</strong>
+                    <p>Race electric karts at MONOWHEEL. Super fun for the family!</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">1:00 PM</div>
-                    <strong>Terminal 21 Food Court</strong>
-                    <p>Head to the 5th floor (Pier 21) for the best budget food secret in Bangkok. High-quality street food in A/C.</p>
+                    <strong>🍲 Pier 21 Food Court</strong>
+                    <p>Best cheap eats in BKK (Terminal 21 Mall). A/C and yummy food.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">7:00 PM</div>
-                    <strong>Jodd Fairs Night Market</strong>
-                    <p>Grab a family table and order "Leng Saeb"—a towering mountain of spicy pork spine soup.</p>
+                    <strong>🌶️ Jodd Fairs Night Market</strong>
+                    <p>Try the famous "Volcano Ribs" (Leng Saeb)!</p>
                 </div>
             </div>
 
-            <div class="card">
-                <h3><i class="fas fa-puzzle-piece"></i> Day 4: Wednesday, March 4</h3>
+             <div class="card">
+                <h3><i class="fas fa-shopping-bag"></i> Day 4: Shop & Solve</h3>
                 <div class="timeline-item">
                     <div class="time-badge">10:30 AM</div>
-                    <strong>MBK Center Bargain Hunting</strong>
-                    <p>The best place for cheap clothing, souvenirs, and electronics accessories.</p>
+                    <strong>👕 MBK Center Shopping</strong>
+                    <p>Bargain hunter's paradise for shirts and souvenirs.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">2:30 PM</div>
-                    <strong>MBK Escape Room</strong>
-                    <p>Test your logic, systems-thinking, and teamwork to crack the room in under 60 minutes.</p>
+                    <strong>🧩 Escape Room Challenge</strong>
+                    <p>Team up to solve puzzles and escape in 60 mins (MBK 7th Fl).</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">6:30 PM</div>
-                    <strong>Isan Family Dinner</strong>
-                    <p>Find an authentic Northeastern Thai restaurant. Order Gai Yang (grilled chicken) and Tom Saab to share.</p>
+                    <strong>🍗 Isan Dinner</strong>
+                    <p>Grilled chicken (Gai Yang) & Som Tum salad night.</p>
                 </div>
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-plane-departure"></i> Day 5: Thursday, March 5</h3>
+                <h3><i class="fas fa-plane"></i> Day 5: Relax & Fly</h3>
                 <div class="timeline-item">
                     <div class="time-badge">Morning</div>
-                    <strong>Pratunam Market & Massage</strong>
-                    <p>Walk the early morning wholesale market, followed by a final 1-hour relaxing foot massage.</p>
+                    <strong>💆‍♀️ Thai Massage</strong>
+                    <p>Last chance for a relaxing foot massage before the flight.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">Lunch</div>
-                    <strong>Farewell Feast</strong>
-                    <p>Grab a final bowl of Tom Yum Goong or Pad Thai.</p>
+                    <strong>🥘 Last Pad Thai</strong>
+                    <p>One final delicious meal.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">Afternoon</div>
-                    <strong>Airport Departure</strong>
-                    <p>Collect luggage and head to the airport. Allow at least 1 hour for traffic if taking a car.</p>
+                    <strong>👋 Bye Bye Bangkok</strong>
+                    <p>Head to the airport early (allow 1 hr for traffic).</p>
                 </div>
             </div>
         </div>
 
         <div id="logistics" class="tab-content">
             <div class="card">
-                <h3><i class="fas fa-car"></i> Getting Around (For a Family of 4)</h3>
-                <ul style="margin-left: 1.5rem;">
-                    <li><strong>Grab vs. Bolt:</strong> For a family of 4, ride-hailing is often cheaper than 4 separate train tickets. <strong>Bolt</strong> is usually the cheapest option, but <strong>Grab</strong> has a larger fleet with more "Large/XL" options for luggage.</li>
-                    <li><strong>Traffic Warning:</strong> Always use the BTS/MRT during rush hours (7:30–9:30 AM and 5:00–7:30 PM) to avoid being stuck in gridlock.</li>
-                    <li><strong>BTS Skytrain:</strong> Very efficient. If you have younger kids, note that children under 90cm ride for free.</li>
-                </ul>
-                <div class="highlight">
-                    <strong>Airport Transfer:</strong> If landing at Suvarnabhumi (BKK), the Airport Rail Link is fast (45 THB/pax), but booking a Grab directly from the airport is highly recommended for a family of 4 to avoid hauling luggage up and down station stairs.
+                <h3><i class="fas fa-taxi"></i> Getting Around</h3>
+                <p><strong>🚕 Grab / Bolt:</strong> <br>Since we are 4 people, using the <strong>Bolt App</strong> is often cheaper than 4 train tickets! Plus, it's comfy A/C door-to-door.</p>
+                <div class="highlight-box">
+                    <i class="fas fa-exclamation-circle fa-lg"></i>
+                    <div>
+                        <strong>Rush Hour Alert!</strong><br>
+                        Avoid cars between 5:00 PM - 7:30 PM. Use the BTS Skytrain instead!
+                    </div>
                 </div>
             </div>
 
             <div class="card">
-                <h3><i class="fas fa-wallet"></i> Currency & Payments</h3>
-                <p>Cash is still king for street food and small markets.</p>
-                <br>
-                <ul style="margin-left: 1.5rem;">
-                    <li>You can withdraw Thai Baht from local ATMs using your <strong>GXBank</strong> or <strong>Wise</strong> card. Note: All Thai ATMs charge a flat 220 THB (~RM28) fee per transaction, so withdraw the maximum amount allowed in one go to minimize fees.</li>
-                    <li>Alternatively, bring MYR cash and exchange it at a green or orange <strong>SuperRich</strong> booth in the city for the best exchange rates.</li>
+                <h3><i class="fas fa-money-bill-wave"></i> Money Tips</h3>
+                <ul style="list-style: none; padding-left: 0.5rem;">
+                    <li style="margin-bottom: 1rem;">
+                        💳 <strong>Cards:</strong> Use <strong>Wise</strong> or <strong>GXBank</strong> for the best rates.
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        💵 <strong>Cash:</strong> Bring some MYR cash to exchange at <strong>SuperRich</strong> (orange/green booths) for the best rate.
+                    </li>
+                    <li>
+                        🏧 <strong>ATM Warning:</strong> Thai ATMs charge ~220 THB (RM28) per withdrawal! Withdraw big amounts at once.
+                    </li>
                 </ul>
             </div>
         </div>
 
         <div id="stay" class="tab-content">
             <div class="card">
-                <h3><i class="fas fa-bed"></i> Recommended Areas for Families</h3>
+                <h3><i class="fas fa-map-pin"></i> Best Areas to Stay</h3>
                 
-                <div style="margin-bottom: 1.5rem;">
-                    <h4 style="color: var(--text-main);">1. Phaya Thai / Ratchathewi (Top Choice)</h4>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Directly on the Airport Rail Link line, making arrival and departure incredibly easy. Just one or two BTS stops from major shopping districts.</p>
+                <div style="margin-bottom: 1.5rem; border-bottom: 1px dashed #eee; padding-bottom: 1rem;">
+                    <h4 style="color: var(--primary-dark);">🏆 Phaya Thai Area</h4>
+                    <p>Best for airport access! Direct train line to BKK airport and close to shopping.</p>
                 </div>
 
-                <div style="margin-bottom: 1.5rem;">
-                    <h4 style="color: var(--text-main);">2. Asok / Sukhumvit</h4>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">The intersection of the BTS (Skytrain) and MRT (Subway). Staying here means you rarely have to transfer lines, saving a lot of walking for the family.</p>
+                <div style="margin-bottom: 1.5rem; border-bottom: 1px dashed #eee; padding-bottom: 1rem;">
+                    <h4 style="color: var(--primary-dark);">🚇 Asok / Sukhumvit</h4>
+                    <p>The "Center of Everything". Where the Skytrain meets the Subway. Very convenient.</p>
                 </div>
 
                 <div>
-                    <h4 style="color: var(--text-main);">3. Pratunam</h4>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Famous for wholesale clothing markets and cheap, excellent street food right outside your door. Highly walkable to CentralWorld.</p>
+                    <h4 style="color: var(--primary-dark);">👗 Pratunam</h4>
+                    <p>Best for street food & cheap clothes right outside your door.</p>
                 </div>
             </div>
         </div>
 
         <div id="checklist" class="tab-content">
             <div class="card">
-                <h3><i class="fas fa-suitcase-rolling"></i> Family Packing List</h3>
-                <p style="margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;">Click items to cross them off. (Resets on page reload)</p>
+                <h3><i class="fas fa-suitcase"></i> Packing List</h3>
+                <p style="margin-bottom: 1.5rem; color: var(--text-light);">Tap to check off! ✅</p>
                 
                 <label class="check-item">
                     <input type="checkbox">
-                    <span>Passports (Valid for at least 6 months)</span>
+                    <span>🛂 Passports (6+ months valid)</span>
                 </label>
                 <label class="check-item">
                     <input type="checkbox">
-                    <span>Flight itineraries & Hotel confirmations</span>
+                    <span>📄 Flight & Hotel PDFs</span>
                 </label>
                 <label class="check-item">
                     <input type="checkbox">
-                    <span>Travel Cards (Wise / GXBank) & some MYR Cash</span>
+                    <span>💳 Wise/GXBank Card</span>
                 </label>
                 <label class="check-item">
                     <input type="checkbox">
-                    <span>Lightweight, breathable clothing (Cotton/Linen)</span>
+                    <span>👕 Light Cotton Clothes</span>
                 </label>
                 <label class="check-item">
                     <input type="checkbox">
-                    <span>Comfortable walking shoes (crucial for market days)</span>
+                    <span>👟 Comfy Walking Shoes</span>
                 </label>
                 <label class="check-item">
                     <input type="checkbox">
-                    <span>Temple Wear: Pants/skirts covering knees, shirts covering shoulders</span>
+                    <span>🔌 Universal Adapter</span>
                 </label>
                 <label class="check-item">
                     <input type="checkbox">
-                    <span>Universal Power Adapters & Power Banks</span>
+                    <span>💊 Panadol & Charcoal Pills</span>
                 </label>
                 <label class="check-item">
                     <input type="checkbox">
-                    <span>Basic First Aid (Plasters, Panadol, Charcoal pills for stomach bugs)</span>
+                    <span>🧴 Sunscreen & Hat</span>
                 </label>
             </div>
         </div>
+
     </div>
 
     <script>
         function switchTab(tabId) {
-            // Remove active class from all buttons and content
+            // Remove active class from all
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-            // Add active class to clicked button and target content
+            // Add active class to clicked
             event.currentTarget.classList.add('active');
             document.getElementById(tabId).classList.add('active');
+            
+            // Scroll to top of content for mobile feeling
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
     </script>
 </body>
