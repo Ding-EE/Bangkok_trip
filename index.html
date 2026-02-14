@@ -3,180 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bangkok Family Trip 2026</title>
+    <title>Bangkok: Family & Food 2026</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #0F172A;       /* Slate 900 */
-            --accent: #0D9488;        /* Teal 600 */
-            --accent-light: #F0FDFA;  /* Teal 50 */
-            --bg-body: #F8FAFC;       /* Slate 50 */
+            --primary: #1E293B;       /* Slate 800 */
+            --accent: #F43F5E;        /* Rose 500 (For Michelin vibe) */
+            --teal: #14B8A6;          /* Teal 500 */
+            --bg-body: #F1F5F9;       /* Slate 100 */
             --surface: #FFFFFF;
             --text-main: #334155;
             --text-muted: #64748B;
             --border: #E2E8F0;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            --success: #10B981;
-            --warning: #F59E0B;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-body); color: var(--text-main); padding-bottom: 100px; min-height: 100vh; }
+        body { background-color: var(--bg-body); color: var(--text-main); padding-bottom: 90px; min-height: 100vh; }
 
-        /* --- Sticky Header --- */
+        /* --- Header --- */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 1.25rem;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            background: var(--surface);
+            padding: 1.5rem 1.25rem;
+            position: sticky; top: 0; z-index: 50;
             border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        h1 { font-size: 1.25rem; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
-        .trip-dates { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; background: var(--bg-body); padding: 4px 10px; border-radius: 20px; }
+        h1 { font-size: 1.25rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .budget-badge { background: #ECFDF5; color: #059669; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; border: 1px solid #D1FAE5; }
 
         /* --- Container --- */
-        .container { max-width: 600px; margin: 0 auto; padding: 1.25rem; }
+        .container { max-width: 650px; margin: 0 auto; padding: 1.25rem; }
 
-        /* --- Accordion Itinerary --- */
+        /* --- Itinerary Cards --- */
         .day-card {
-            background: var(--surface);
-            border-radius: 16px;
-            margin-bottom: 1rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            overflow: hidden;
-            transition: all 0.3s ease;
+            background: var(--surface); border-radius: 16px; margin-bottom: 1rem;
+            box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden;
         }
 
         .day-header {
-            padding: 1.25rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            background: var(--surface);
+            padding: 1.25rem; display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; background: var(--surface); transition: background 0.2s;
         }
+        .day-header:active { background: #F8FAFC; }
 
-        .day-title { font-weight: 700; color: var(--primary); font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
-        .day-title i { color: var(--accent); width: 24px; }
-        .expand-icon { transition: transform 0.3s ease; color: var(--text-muted); }
-        
-        /* Expanded Content */
-        .day-content {
-            display: none;
-            border-top: 1px solid var(--border);
-            background: #FAFAFA;
-            padding: 0 1.25rem 1.25rem;
+        .day-title { font-weight: 700; color: var(--primary); font-size: 1.05rem; display: flex; align-items: center; gap: 12px; }
+        .day-icon { 
+            width: 32px; height: 32px; background: #F1F5F9; border-radius: 8px; 
+            display: flex; align-items: center; justify-content: center; color: var(--primary);
         }
-        .day-card.active .day-content { display: block; animation: slideDown 0.3s ease; }
+        .expand-icon { transition: transform 0.3s ease; color: var(--text-muted); }
         .day-card.active .expand-icon { transform: rotate(180deg); }
 
-        /* Timeline in Accordion */
-        .event {
-            position: relative;
-            padding-left: 24px;
-            margin-top: 1.5rem;
-            border-left: 2px solid var(--border);
-        }
+        /* Content */
+        .day-content { display: none; border-top: 1px solid var(--border); background: #FAFAFA; padding: 0 1.25rem 1.5rem; }
+        .day-card.active .day-content { display: block; animation: slideDown 0.3s ease; }
+
+        /* Events */
+        .event { position: relative; padding-left: 28px; margin-top: 1.5rem; border-left: 2px solid #E2E8F0; }
         .event::before {
-            content: ''; position: absolute; left: -7px; top: 0;
-            width: 12px; height: 12px; border-radius: 50%;
-            background: var(--accent); border: 2px solid white;
-            box-shadow: 0 0 0 2px var(--accent-light);
+            content: ''; position: absolute; left: -7px; top: 4px;
+            width: 12px; height: 12px; border-radius: 50%; background: var(--text-muted); border: 2px solid white;
         }
+        .event.highlight::before { background: var(--accent); transform: scale(1.2); } /* Michelin Highlight */
 
-        .time { font-size: 0.75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: block;}
-        .activity-name { font-weight: 600; color: var(--primary); font-size: 1rem; margin-bottom: 4px; }
-        .details { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 8px; }
+        .time { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; display: block; }
+        .activity-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+        .activity-name { font-weight: 700; color: var(--primary); font-size: 1rem; }
         
-        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-        .tag { font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; background: white; border: 1px solid var(--border); color: var(--text-muted); font-weight: 500; display: flex; align-items: center; gap: 4px; }
+        .michelin-badge { 
+            background: var(--accent); color: white; font-size: 0.65rem; font-weight: 700; 
+            padding: 2px 8px; border-radius: 100px; display: flex; align-items: center; gap: 4px;
+        }
+
+        .details { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
         
-        .btn-action {
-            text-decoration: none;
-            background: var(--primary); color: white;
-            padding: 6px 12px; border-radius: 8px;
-            font-size: 0.8rem; font-weight: 500;
-            display: inline-flex; align-items: center; gap: 6px;
-            margin-top: 8px;
-            border: none;
-            cursor: pointer;
+        /* Cost Tags */
+        .cost-row { display: flex; gap: 10px; margin-top: 8px; }
+        .cost-tag { 
+            font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; 
+            background: white; border: 1px solid var(--border); color: var(--text-main); font-weight: 600;
         }
-        .btn-action.secondary { background: white; color: var(--primary); border: 1px solid var(--border); }
+        .cost-tag i { color: var(--teal); margin-right: 4px; }
 
-        /* --- Hotels Tab --- */
-        .hotel-card {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 0;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-        .hotel-img-placeholder {
-            height: 120px;
-            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-muted); font-weight: 600;
-        }
-        .hotel-content { padding: 1.25rem; }
-        .hotel-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .hotel-tag { 
-            display: inline-block; background: #ECFDF5; color: var(--success); 
-            font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; margin-bottom: 8px;
-        }
-
-        /* --- Logistics Comparison Table --- */
-        .logistics-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .logistics-table th { text-align: left; font-size: 0.8rem; color: var(--text-muted); padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-        .logistics-table td { padding: 10px 0; font-size: 0.9rem; border-bottom: 1px solid var(--border); }
-        .price-badge { background: var(--bg-body); padding: 4px 8px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; }
-
-        /* --- Tools Tab --- */
+        /* --- Tools & Logistics --- */
         .tool-card { background: var(--surface); padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem; border: 1px solid var(--border); box-shadow: var(--shadow); }
-        .tool-title { font-weight: 700; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
-        
-        /* Converter */
-        .converter-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; }
-        .input-group label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 4px; color: var(--text-muted); }
-        .input-group input { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; font-weight: 600; text-align: center; }
-        .rate-info { font-size: 0.8rem; text-align: center; margin-top: 10px; color: var(--text-muted); background: var(--accent-light); padding: 6px; border-radius: 6px;}
+        .tool-title { font-weight: 700; color: var(--primary); margin-bottom: 1rem; font-size: 1.1rem; }
 
-        /* --- Checklist --- */
-        .check-item { display: flex; align-items: flex-start; padding: 12px; background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; transition: 0.2s; }
-        .check-item input { margin-right: 12px; margin-top: 4px; accent-color: var(--accent); transform: scale(1.2); }
-        .check-item span { font-size: 0.95rem; color: var(--text-main); }
-        .check-item input:checked + span { text-decoration: line-through; color: var(--text-muted); opacity: 0.7; }
+        /* Pricing Table */
+        .price-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .price-table td { padding: 10px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+        .price-table tr:last-child td { border-bottom: none; }
+        .price-val { font-weight: 700; color: var(--primary); text-align: right; white-space: nowrap; }
+
+        /* Converter */
+        .converter-box { background: #F8FAFC; padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
+        .conv-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .conv-input { width: 100px; padding: 8px; border-radius: 6px; border: 1px solid #CBD5E1; text-align: center; font-weight: 600; }
 
         /* --- Nav --- */
         .bottom-nav {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             background: var(--primary); color: white;
-            display: flex; gap: 8px; padding: 6px; border-radius: 50px;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25); z-index: 100;
+            display: flex; gap: 5px; padding: 8px 12px; border-radius: 100px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 100;
         }
         .nav-btn {
             background: transparent; border: none; color: #94A3B8;
-            padding: 10px 20px; border-radius: 40px; font-size: 0.9rem; font-weight: 500;
-            cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.3s;
+            padding: 10px 18px; border-radius: 40px; font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s;
         }
         .nav-btn.active { background: rgba(255,255,255,0.15); color: white; }
         .nav-btn span { display: none; }
         @media(min-width: 500px) { .nav-btn span { display: block; } }
 
-        /* Animations */
+        /* Utilities */
         .tab-content { display: none; animation: fadeIn 0.3s ease; }
         .tab-content.active { display: block; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     </style>
@@ -184,8 +132,8 @@
 <body>
 
     <header>
-        <h1>Bangkok Trip 🐘</h1>
-        <span class="trip-dates">Mar 1 - 5</span>
+        <h1>Bangkok Trip 🇹🇭</h1>
+        <div class="budget-badge">Family of 4</div>
     </header>
 
     <div class="container">
@@ -194,56 +142,38 @@
             
             <div class="day-card" onclick="toggleDay(this)">
                 <div class="day-header">
-                    <div class="day-title"><i class="fas fa-plane-arrival"></i> Day 1: Sunday Arrival</div>
+                    <div class="day-title">
+                        <div class="day-icon"><i class="fas fa-plane"></i></div>
+                        Day 1: Sunday Arrival
+                    </div>
                     <i class="fas fa-chevron-down expand-icon"></i>
                 </div>
                 <div class="day-content">
                     <div class="event">
                         <span class="time">2:00 PM</span>
-                        <div class="activity-name">Touchdown & Transport</div>
-                        <div class="details">Land at BKK/DMK. For 4 people, <strong>book a GrabCar XL or Van</strong> directly to hotel. It's cheaper than 4 train tickets + hassle.</div>
-                        <div class="tags">
-                            <span class="tag"><i class="fas fa-money-bill"></i> ~400 THB</span>
-                            <span class="tag"><i class="fas fa-clock"></i> 45 mins</span>
+                        <div class="activity-header"><div class="activity-name">Airport Transfer</div></div>
+                        <div class="details">Book a <strong>GrabCar Van</strong> or XL. It fits 4 pax + luggage easily.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-taxi"></i> ~500-700 THB</span>
                         </div>
                     </div>
                     <div class="event">
                         <span class="time">4:30 PM</span>
-                        <div class="activity-name">Chatuchak Weekend Market</div>
-                        <div class="details">Largest market in the world. <strong>Must visit:</strong> Section 2 (Trendy Clothes) & Section 22 (Food).</div>
-                        <div class="tags">
-                            <span class="tag"><i class="fas fa-utensils"></i> Try: Coconut Ice Cream</span>
+                        <div class="activity-header"><div class="activity-name">Chatuchak Weekend Market</div></div>
+                        <div class="details">World's largest market. Explore Section 2 (Fashion) & Section 22 (Food).</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-ticket-alt"></i> Free Entry</span>
                         </div>
-                        <a href="https://maps.app.goo.gl/chatuchak" target="_blank" class="btn-action"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
                     </div>
-                </div>
-            </div>
-
-            <div class="day-card" onclick="toggleDay(this)">
-                <div class="day-header">
-                    <div class="day-title"><i class="fas fa-gopuram"></i> Day 2: Culture & Old City</div>
-                    <i class="fas fa-chevron-down expand-icon"></i>
-                </div>
-                <div class="day-content">
-                    <div class="event">
-                        <span class="time">10:00 AM</span>
-                        <div class="activity-name">Mega Plaza Saphan Lek</div>
-                        <div class="details">6 floors of toys, cameras, and gaming. Great for finding rare items.</div>
-                        <a href="https://maps.app.goo.gl/megaplaza" target="_blank" class="btn-action secondary"><i class="fas fa-map-pin"></i> Location</a>
-                    </div>
-                    <div class="event">
-                        <span class="time">1:00 PM</span>
-                        <div class="activity-name">Wat Pho (Reclining Buddha)</div>
-                        <div class="details">Take a Tuk-Tuk from Mega Plaza (~100 THB). See the massive gold Buddha. Then cross river (5 THB) to Wat Arun.</div>
-                        <div class="tags"><span class="tag"><i class="fas fa-ticket-alt"></i> Entry: 300 THB</span></div>
-                    </div>
-                    <div class="event">
-                        <span class="time">6:30 PM</span>
-                        <div class="activity-name">Chinatown Street Food</div>
-                        <div class="details">Yaowarat Road. The neon lights turn on and food stalls take over the street.</div>
-                        <div class="tags">
-                            <span class="tag">🍜 Rec: Rolled Noodles</span>
-                            <span class="tag">🍞 Rec: Toasted Buns</span>
+                    <div class="event highlight">
+                        <span class="time">Dinner (Nearby)</span>
+                        <div class="activity-header">
+                            <div class="activity-name">Ong Tong Khao Soi</div>
+                            <span class="michelin-badge"><i class="fas fa-star"></i> Bib Gourmand</span>
+                        </div>
+                        <div class="details">Located in Ari (short Grab ride). Famous for Northern Thai Curry Noodles.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-utensils"></i> ~120 THB/pax</span>
                         </div>
                     </div>
                 </div>
@@ -251,200 +181,202 @@
 
             <div class="day-card" onclick="toggleDay(this)">
                 <div class="day-header">
-                    <div class="day-title"><i class="fas fa-gamepad"></i> Day 3: Fun & Shopping</div>
+                    <div class="day-title">
+                        <div class="day-icon"><i class="fas fa-landmark"></i></div>
+                        Day 2: Old City & Culture
+                    </div>
                     <i class="fas fa-chevron-down expand-icon"></i>
                 </div>
                 <div class="day-content">
-                    <div class="event">
-                        <span class="time">10:30 AM</span>
-                        <div class="activity-name">E-Gokart (MONOWHEEL)</div>
-                        <div class="details">Located at Block 28 (Near Chula). High-speed electric karts. Air-conditioned lounge for parents if not racing.</div>
-                        <div class="tags"><span class="tag">⚡ ~450 THB/race</span></div>
-                        <a href="https://maps.app.goo.gl/monowheel" target="_blank" class="btn-action"><i class="fas fa-location-arrow"></i> Navigate</a>
+                    <div class="event highlight">
+                        <span class="time">Lunch</span>
+                        <div class="activity-header">
+                            <div class="activity-name">Krua Apsorn</div>
+                            <span class="michelin-badge"><i class="fas fa-star"></i> Bib Gourmand</span>
+                        </div>
+                        <div class="details">Legendary Crab Omelet. A favorite of the Thai Royal Family.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-utensils"></i> ~300 THB/pax</span>
+                        </div>
                     </div>
                     <div class="event">
-                        <span class="time">1:00 PM</span>
-                        <div class="activity-name">Terminal 21 (Asok)</div>
-                        <div class="details">Head to <strong>Pier 21 (5th Floor)</strong>. Best value food court. Exchange cash for a card at the counter.</div>
-                        <div class="tags"><span class="tag">💰 ~50 THB/meal</span></div>
+                        <span class="time">2:00 PM</span>
+                        <div class="activity-header"><div class="activity-name">Wat Pho (Reclining Buddha)</div></div>
+                        <div class="details">See the 46m gold Buddha. Then take the 5 THB ferry to Wat Arun.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-ticket-alt"></i> 300 THB/pax</span>
+                        </div>
+                    </div>
+                    <div class="event highlight">
+                        <span class="time">Dinner</span>
+                        <div class="activity-header">
+                            <div class="activity-name">Chinatown (Yaowarat)</div>
+                            <span class="michelin-badge"><i class="fas fa-star"></i> Guide</span>
+                        </div>
+                        <div class="details">Try <strong>Guay Jub Ouan Pochana</strong> (Peppery noodle soup) inside the old cinema.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-utensils"></i> ~100 THB/pax</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card" onclick="toggleDay(this)">
+                <div class="day-header">
+                    <div class="day-title">
+                        <div class="day-icon"><i class="fas fa-city"></i></div>
+                        Day 3: City Fun
+                    </div>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="day-content">
+                    <div class="event highlight">
+                        <span class="time">Lunch</span>
+                        <div class="activity-header">
+                            <div class="activity-name">Polo Fried Chicken</div>
+                            <span class="michelin-badge"><i class="fas fa-star"></i> Bib Gourmand</span>
+                        </div>
+                        <div class="details">Located right next to Lumphini Park. Famous for garlic fried chicken.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-utensils"></i> ~200 THB/pax</span>
+                        </div>
+                    </div>
+                    <div class="event">
+                        <span class="time">2:00 PM</span>
+                        <div class="activity-header"><div class="activity-name">Sea Life Ocean World</div></div>
+                        <div class="details">Located in Siam Paragon. Great A/C activity for family. Book online for cheaper rates.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-ticket-alt"></i> ~1,200 THB/pax</span>
+                        </div>
                     </div>
                     <div class="event">
                         <span class="time">7:00 PM</span>
-                        <div class="activity-name">Jodd Fairs Night Market</div>
-                        <div class="details">Clean, modern market. Famous for "Leng Saeb" (Spicy Mountain Ribs). Great for a family feast.</div>
+                        <div class="activity-header"><div class="activity-name">Jodd Fairs Market</div></div>
+                        <div class="details">Dinner: Try "Leng Saeb" (Spicy Pork Mountain) and Fruit Smoothies.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-wallet"></i> ~300 THB/pax</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="day-card" onclick="toggleDay(this)">
                 <div class="day-header">
-                    <div class="day-title"><i class="fas fa-shopping-bag"></i> Day 4: MBK & Escape</div>
+                    <div class="day-title">
+                        <div class="day-icon"><i class="fas fa-shopping-bag"></i></div>
+                        Day 4: Shopping
+                    </div>
                     <i class="fas fa-chevron-down expand-icon"></i>
                 </div>
                 <div class="day-content">
-                    <div class="event">
-                        <span class="time">11:00 AM</span>
-                        <div class="activity-name">MBK Center</div>
-                        <div class="details">Souvenir haven. Dried mango, elephant pants, and cheap electronics accessories.</div>
+                    <div class="event highlight">
+                        <span class="time">Lunch</span>
+                        <div class="activity-header">
+                            <div class="activity-name">Go-Ang Pratunam</div>
+                            <span class="michelin-badge"><i class="fas fa-star"></i> Bib Gourmand</span>
+                        </div>
+                        <div class="details">The famous "Pink Shirt" Chicken Rice. Be prepared to queue for 20 mins.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-utensils"></i> ~60 THB/pax</span>
+                        </div>
                     </div>
                     <div class="event">
-                        <span class="time">2:30 PM</span>
-                        <div class="activity-name">Escape Room</div>
-                        <div class="details">Located on <strong>7th Floor MBK</strong>. Good team building for the family.</div>
+                        <span class="time">Afternoon</span>
+                        <div class="activity-header"><div class="activity-name">MBK Center & Siam</div></div>
+                        <div class="details">Souvenirs at MBK. Luxury browsing at Siam Paragon.</div>
                     </div>
-                    <div class="event">
-                        <span class="time">Dinner</span>
-                        <div class="activity-name">Isan Food (Som Tam Nua)</div>
-                        <div class="details">Walk to Siam Square (nearby) for authentic Isan food. Order Gai Yang & Sticky Rice.</div>
+                    <div class="event highlight">
+                        <span class="time">Dessert</span>
+                        <div class="activity-header">
+                            <div class="activity-name">Pang Cha</div>
+                            <span class="michelin-badge"><i class="fas fa-star"></i> Guide</span>
+                        </div>
+                        <div class="details">Located in Central World. Famous Royal Thai Tea Shaved Ice.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-ice-cream"></i> ~350 THB (Shareable)</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="day-card" onclick="toggleDay(this)">
                 <div class="day-header">
-                    <div class="day-title"><i class="fas fa-plane"></i> Day 5: Relax & Depart</div>
+                    <div class="day-title">
+                        <div class="day-icon"><i class="fas fa-spa"></i></div>
+                        Day 5: Relax
+                    </div>
                     <i class="fas fa-chevron-down expand-icon"></i>
                 </div>
                 <div class="day-content">
                     <div class="event">
                         <span class="time">Morning</span>
-                        <div class="activity-name">Thai Massage</div>
-                        <div class="details">Find a clean parlor near hotel. 1-hour foot massage is standard before flying.</div>
-                        <div class="tags"><span class="tag">💆‍♂️ ~300 THB</span></div>
+                        <div class="activity-header"><div class="activity-name">Thai Massage</div></div>
+                        <div class="details">Find a clean parlor near hotel. Foot massage is best before flight.</div>
+                        <div class="cost-row">
+                            <span class="cost-tag"><i class="fas fa-wallet"></i> ~300 THB/hr</span>
+                        </div>
                     </div>
                     <div class="event">
                         <span class="time">Departure</span>
-                        <div class="activity-name">Head to Airport</div>
-                        <div class="details">Allow <strong>1 hour</strong> for travel time if using Grab. Traffic is unpredictable.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-hotels" class="tab-content">
-            <div class="tool-card" style="background: #F0FDFA; border-color: var(--accent);">
-                <div class="tool-title" style="color: var(--accent);"><i class="fas fa-info-circle"></i> Best Areas</div>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">
-                    <strong>1. Phaya Thai:</strong> Direct Airport Train access. Quiet. <br>
-                    <strong>2. Asok:</strong> Center of action. Busy but convenient.
-                </p>
-            </div>
-
-            <div class="hotel-card">
-                <div class="hotel-img-placeholder" style="background:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/48/4f/54/exterior.jpg?w=1200&h=-1&s=1') center/cover;">
-                    <span style="color:white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Abloom Exclusive Serviced Apts</span>
-                </div>
-                <div class="hotel-content">
-                    <span class="hotel-tag">Best Value Family</span>
-                    <div class="hotel-name">Abloom Exclusive Apartments</div>
-                    <p class="details">Located near Sanam Pao BTS (1 stop from Phaya Thai). They offer huge 2-Bedroom suites which is perfect for 4 people.</p>
-                    <div class="tags">
-                        <span class="tag"><i class="fas fa-bed"></i> 2-Bedroom Suite</span>
-                        <span class="tag"><i class="fas fa-train"></i> Near BTS</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hotel-card">
-                <div class="hotel-img-placeholder" style="background:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/174360682.jpg?k=339241595156475656133742416173841571439213567812117215161') center/cover;">
-                    <span style="color:white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Anajak Bangkok</span>
-                </div>
-                <div class="hotel-content">
-                    <span class="hotel-tag">Modern & Stylish</span>
-                    <div class="hotel-name">Anajak Bangkok Hotel</div>
-                    <p class="details">Walking distance to Phaya Thai station. Very modern, clean, and has connecting rooms available.</p>
-                    <div class="tags">
-                        <span class="tag"><i class="fas fa-swimmer"></i> Nice Pool</span>
-                        <span class="tag"><i class="fas fa-utensils"></i> Great Breakfast</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hotel-card">
-                <div class="hotel-img-placeholder" style="background:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/49525492.jpg?k=123123') center/cover;">
-                    <span style="color:white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Grande Centre Point T21</span>
-                </div>
-                <div class="hotel-content">
-                    <span class="hotel-tag">Best Location</span>
-                    <div class="hotel-name">Grande Centre Point T21</div>
-                    <p class="details">Directly connected to Asok BTS and Terminal 21 Mall. Pricier, but the most convenient option in Bangkok.</p>
-                    <div class="tags">
-                        <span class="tag"><i class="fas fa-shopping-bag"></i> Mall Access</span>
-                        <span class="tag"><i class="fas fa-star"></i> Luxury</span>
+                        <div class="activity-header"><div class="activity-name">Airport</div></div>
+                        <div class="details">Allow 1hr for travel time.</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="tab-logistics" class="tab-content">
+            
             <div class="tool-card">
-                <div class="tool-title"><i class="fas fa-taxi"></i> Transport Comparison (4 Pax)</div>
-                <table class="logistics-table">
-                    <thead>
-                        <tr>
-                            <th>Method</th>
-                            <th>Cost (Est.)</th>
-                            <th>Pros/Cons</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Bolt / Grab</strong></td>
-                            <td><span class="price-badge">~150-250฿</span></td>
-                            <td>Best for 4 pax. Comfy. Avoid in rush hour.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>BTS Train</strong></td>
-                            <td><span class="price-badge">~160฿ total</span></td>
-                            <td>Fastest during traffic jams (5-7 PM).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Tuk Tuk</strong></td>
-                            <td><span class="price-badge">~200฿+</span></td>
-                            <td>Fun for short trips. Negotiate price first!</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Boat (Orange)</strong></td>
-                            <td><span class="price-badge">16฿ /pax</span></td>
-                            <td>Scenic & cheap. No traffic.</td>
-                        </tr>
-                    </tbody>
+                <div class="tool-title"><i class="fas fa-calculator"></i> Currency Calculator</div>
+                <div class="converter-box">
+                    <div class="conv-row">
+                        <span>MYR (Ringgit)</span>
+                        <input type="number" id="myrInput" value="100" class="conv-input" oninput="convert('myr')">
+                    </div>
+                    <div style="text-align: center; color: #94A3B8; margin: 5px 0;"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="conv-row">
+                        <span>THB (Baht)</span>
+                        <input type="number" id="thbInput" value="780" class="conv-input" oninput="convert('thb')">
+                    </div>
+                    <div style="text-align:center; font-size:0.8rem; color:#64748B; margin-top:10px;">Rate: 1 MYR ≈ 7.8 THB</div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-title"><i class="fas fa-wallet"></i> Cost Estimates (4 Pax)</div>
+                <table class="price-table">
+                    <tr>
+                        <td><strong>Sim Card</strong><br><span style="font-size:0.8rem; color:#64748B;">7-Eleven Tourist Sim</span></td>
+                        <td class="price-val">~200฿<br><span style="font-size:0.7rem; font-weight:400;">per person</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Grab XL</strong><br><span style="font-size:0.8rem; color:#64748B;">Airport to City</span></td>
+                        <td class="price-val">~600฿<br><span style="font-size:0.7rem; font-weight:400;">per car</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Street Food</strong><br><span style="font-size:0.8rem; color:#64748B;">Avg Meal</span></td>
+                        <td class="price-val">60-100฿<br><span style="font-size:0.7rem; font-weight:400;">per person</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mall Dining</strong><br><span style="font-size:0.8rem; color:#64748B;">Avg Meal</span></td>
+                        <td class="price-val">250-500฿<br><span style="font-size:0.7rem; font-weight:400;">per person</span></td>
+                    </tr>
                 </table>
             </div>
 
-            <div class="tool-card">
-                <div class="tool-title"><i class="fas fa-exchange-alt"></i> Quick Converter</div>
-                <div class="converter-grid">
-                    <div class="input-group">
-                        <label>MYR (Ringgit)</label>
-                        <input type="number" id="myrInput" placeholder="100" oninput="convert('myr')">
-                    </div>
-                    <i class="fas fa-arrow-right" style="color:var(--text-muted); font-size: 0.8rem;"></i>
-                    <div class="input-group">
-                        <label>THB (Baht)</label>
-                        <input type="number" id="thbInput" placeholder="780" oninput="convert('thb')">
-                    </div>
+             <div class="tool-card">
+                <div class="tool-title"><i class="fas fa-bed"></i> Family Hotel Recs</div>
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight:700;">Abloom Exclusive Serviced Apts</div>
+                    <div style="font-size:0.9rem; color:#64748B;">Near Sanam Pao BTS. Huge 2-bedroom suites.</div>
+                    <div class="cost-tag" style="display:inline-block; margin-top:5px;">~3,000 THB/night</div>
                 </div>
-                <div class="rate-info">Rate used: 1 MYR ≈ 7.8 THB</div>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-title"><i class="fas fa-wallet"></i> Trip Spender</div>
-                <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:15px;">
-                    <div>
-                        <div style="font-size:0.8rem; color:var(--text-muted);">Total Spent</div>
-                        <div style="font-size:1.8rem; font-weight:700; color:var(--primary);">
-                            <span id="totalSpend">0</span> THB
-                        </div>
-                    </div>
-                    <button onclick="resetSpend()" style="font-size:0.8rem; color:red; background:none; border:none; padding:5px;">Reset</button>
+                <div style="border-top:1px solid #eee; padding-top:10px;">
+                    <div style="font-weight:700;">Grande Centre Point T21</div>
+                    <div style="font-size:0.9rem; color:#64748B;">Connected to Asok Mall. Luxury & Convenient.</div>
+                    <div class="cost-tag" style="display:inline-block; margin-top:5px;">~6,000 THB/night</div>
                 </div>
-                <div style="display:flex; gap:10px;">
-                    <input type="number" id="expenseInput" placeholder="Amount (THB)" style="flex:1; padding:10px; border-radius:8px; border:1px solid var(--border);">
-                    <button onclick="addExpense()" style="background:var(--primary); color:white; border:none; padding:0 15px; border-radius:8px;"><i class="fas fa-plus"></i></button>
-                </div>
-                <ul id="expenseList" style="margin-top:15px; list-style:none; font-size:0.9rem; color:var(--text-muted);">
-                    </ul>
             </div>
         </div>
 
@@ -460,16 +392,13 @@
 
     <nav class="bottom-nav">
         <button class="nav-btn active" onclick="switchTab('tab-plan', this)">
-            <i class="fas fa-map-marked-alt"></i> <span>Plan</span>
-        </button>
-        <button class="nav-btn" onclick="switchTab('tab-hotels', this)">
-            <i class="fas fa-bed"></i> <span>Stay</span>
+            <i class="fas fa-map-marked-alt"></i> <span>Itinerary</span>
         </button>
         <button class="nav-btn" onclick="switchTab('tab-logistics', this)">
-            <i class="fas fa-tools"></i> <span>Tools</span>
+            <i class="fas fa-wallet"></i> <span>Costs</span>
         </button>
         <button class="nav-btn" onclick="switchTab('tab-pack', this)">
-            <i class="fas fa-clipboard-list"></i> <span>Pack</span>
+            <i class="fas fa-check-circle"></i> <span>Pack</span>
         </button>
     </nav>
 
@@ -485,12 +414,12 @@
 
         // 2. Accordion Logic
         function toggleDay(card) {
-            // Close others (optional - remove this line if you want multiple open)
-            document.querySelectorAll('.day-card').forEach(c => { if(c !== card) c.classList.remove('active') });
+            // Uncomment to keep only one open at a time:
+            // document.querySelectorAll('.day-card').forEach(c => { if(c !== card) c.classList.remove('active') });
             card.classList.toggle('active');
         }
 
-        // 3. Currency Converter
+        // 3. Converter
         function convert(source) {
             const myr = document.getElementById('myrInput');
             const thb = document.getElementById('thbInput');
@@ -503,47 +432,18 @@
             }
         }
 
-        // 4. Expense Tracker
-        let total = 0;
-        function addExpense() {
-            const input = document.getElementById('expenseInput');
-            const val = parseInt(input.value);
-            if (val) {
-                total += val;
-                document.getElementById('totalSpend').innerText = total.toLocaleString();
-                
-                // Add to list
-                const li = document.createElement('li');
-                li.innerHTML = `+ ${val} THB`;
-                document.getElementById('expenseList').prepend(li);
-                
-                input.value = '';
-                saveExpense();
-            }
-        }
-        
-        function resetSpend() {
-            if(confirm('Reset tracker?')) {
-                total = 0;
-                document.getElementById('totalSpend').innerText = '0';
-                document.getElementById('expenseList').innerHTML = '';
-                saveExpense();
-            }
-        }
-
-        function saveExpense() { localStorage.setItem('bkkSpend', total); }
-        // Load expense on start
-        const savedSpend = localStorage.getItem('bkkSpend');
-        if(savedSpend) {
-            total = parseInt(savedSpend);
-            document.getElementById('totalSpend').innerText = total.toLocaleString();
-        }
-
-        // 5. Checklist System
+        // 4. Checklist System
         const checklistItems = [
-            "Passports (Valid 6+ Months)", "Flight Tickets (PDF)", "Hotel Confirmations", 
-            "Wise / GXBank Card", "Cash (MYR for exchange)", "Universal Adapter", 
-            "Powerbank (Carry-on)", "Sunscreen", "Comfortable Shoes", "Basic Meds (Panadol/Charcoal)"
+            "Passports (Valid 6+ Months)", 
+            "Flight & Hotel PDFs", 
+            "Travel Insurance Policy",
+            "Wise / GXBank Card", 
+            "Cash (MYR for exchange)", 
+            "Universal Adapter", 
+            "Powerbank (Carry-on)", 
+            "Sunscreen & Hat", 
+            "Comfortable Walking Shoes", 
+            "Charcoal Pills (Stomach)"
         ];
         
         const listContainer = document.getElementById('checklist-container');
@@ -552,9 +452,9 @@
         checklistItems.forEach((item, index) => {
             const isChecked = savedChecks[index] ? 'checked' : '';
             listContainer.innerHTML += `
-                <label class="check-item">
-                    <input type="checkbox" ${isChecked} onchange="toggleCheck(${index}, this)">
-                    <span>${item}</span>
+                <label style="display:flex; align-items:center; padding:10px; border-bottom:1px solid #eee;">
+                    <input type="checkbox" ${isChecked} onchange="toggleCheck(${index}, this)" style="margin-right:10px; transform:scale(1.2); accent-color:var(--primary);">
+                    <span style="font-size:0.95rem;">${item}</span>
                 </label>`;
         });
 
@@ -563,7 +463,6 @@
             current[index] = checkbox.checked;
             localStorage.setItem('bkkChecks', JSON.stringify(current));
         }
-
     </script>
 </body>
 </html>
