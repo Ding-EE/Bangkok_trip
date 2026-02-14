@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangkok Family Trip | March 2026</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-light: #14b8a6;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #0f766e);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: -2rem auto 2rem;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background: #f0fdfa;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            background: #f0fdfa;
+        }
+
+        /* Content Sections */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Itinerary Timeline */
+        .timeline-item {
+            border-left: 3px solid var(--primary-light);
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: #f0fdfa;
+            color: var(--primary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Checklist */
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .check-item:hover {
+            background: #f9fafb;
+        }
+
+        .check-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .check-item span {
+            font-size: 1.05rem;
+            transition: color 0.2s, text-decoration 0.2s;
+        }
+
+        .check-item input[type="checkbox"]:checked + span {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        /* Highlights */
+        .highlight {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        @media (max-width: 600px) {
+            .tab-btn span { display: none; }
+            .tab-btn i { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bangkok Family Trip</h1>
+        <p><i class="far fa-calendar-alt"></i> March 1 - 5, 2026 • 4 Pax</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('itinerary')">
+                <i class="fas fa-map-marked-alt"></i>
+                <span>Itinerary</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('logistics')">
+                <i class="fas fa-subway"></i>
+                <span>Logistics</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('stay')">
+                <i class="fas fa-hotel"></i>
+                <span>Stay</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('checklist')">
+                <i class="fas fa-clipboard-check"></i>
+                <span>Checklist</span>
+            </button>
+        </div>
+
+        <div id="itinerary" class="tab-content active">
+            <div class="card">
+                <h3><i class="fas fa-sun"></i> Day 1: Sunday, March 1</h3>
+                <div class="timeline-item">
+                    <div class="time-badge">Afternoon</div>
+                    <strong>Arrival & Check-in</strong>
+                    <p>Arrive at the airport. Take a Grab/Bolt or Airport Rail Link to your hotel.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">4:00 PM</div>
+                    <strong>Chatuchak Weekend Market</strong>
+                    <p>Catch the world's largest weekend market before it closes for the week.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">Dinner</div>
+                    <strong>Market Street Food</strong>
+                    <p>Share Moo Ping (grilled pork skewers) and a family portion of Pad Kra Pao right in the market.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-microchip"></i> Day 2: Monday, March 2</h3>
+                <div class="timeline-item">
+                    <div class="time-badge">10:00 AM</div>
+                    <strong>Mega Plaza Saphan Lek</strong>
+                    <p>Explore this multi-story tech haven packed with retro hardware, RC components, and unique electronic gadgets.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">2:30 PM</div>
+                    <strong>Wat Pho & Wat Arun</strong>
+                    <p>Take a Tuk-Tuk to see the Reclining Buddha, then a 5-baht cross-river ferry to the Temple of Dawn.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">6:30 PM</div>
+                    <strong>Chinatown (Yaowarat)</strong>
+                    <p>The street transforms into a massive food hub. Share Kuay Jab and toasted pandan buns.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-flag-checkered"></i> Day 3: Tuesday, March 3</h3>
+                <div class="timeline-item">
+                    <div class="time-badge">10:00 AM</div>
+                    <strong>E-Gokart by MONOWHEEL</strong>
+                    <p>Race high-torque electric go-karts. A highly competitive and fun group activity.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">1:00 PM</div>
+                    <strong>Terminal 21 Food Court</strong>
+                    <p>Head to the 5th floor (Pier 21) for the best budget food secret in Bangkok. High-quality street food in A/C.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">7:00 PM</div>
+                    <strong>Jodd Fairs Night Market</strong>
+                    <p>Grab a family table and order "Leng Saeb"—a towering mountain of spicy pork spine soup.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-puzzle-piece"></i> Day 4: Wednesday, March 4</h3>
+                <div class="timeline-item">
+                    <div class="time-badge">10:30 AM</div>
+                    <strong>MBK Center Bargain Hunting</strong>
+                    <p>The best place for cheap clothing, souvenirs, and electronics accessories.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">2:30 PM</div>
+                    <strong>MBK Escape Room</strong>
+                    <p>Test your logic, systems-thinking, and teamwork to crack the room in under 60 minutes.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">6:30 PM</div>
+                    <strong>Isan Family Dinner</strong>
+                    <p>Find an authentic Northeastern Thai restaurant. Order Gai Yang (grilled chicken) and Tom Saab to share.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-plane-departure"></i> Day 5: Thursday, March 5</h3>
+                <div class="timeline-item">
+                    <div class="time-badge">Morning</div>
+                    <strong>Pratunam Market & Massage</strong>
+                    <p>Walk the early morning wholesale market, followed by a final 1-hour relaxing foot massage.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">Lunch</div>
+                    <strong>Farewell Feast</strong>
+                    <p>Grab a final bowl of Tom Yum Goong or Pad Thai.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">Afternoon</div>
+                    <strong>Airport Departure</strong>
+                    <p>Collect luggage and head to the airport. Allow at least 1 hour for traffic if taking a car.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="logistics" class="tab-content">
+            <div class="card">
+                <h3><i class="fas fa-car"></i> Getting Around (For a Family of 4)</h3>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Grab vs. Bolt:</strong> For a family of 4, ride-hailing is often cheaper than 4 separate train tickets. <strong>Bolt</strong> is usually the cheapest option, but <strong>Grab</strong> has a larger fleet with more "Large/XL" options for luggage.</li>
+                    <li><strong>Traffic Warning:</strong> Always use the BTS/MRT during rush hours (7:30–9:30 AM and 5:00–7:30 PM) to avoid being stuck in gridlock.</li>
+                    <li><strong>BTS Skytrain:</strong> Very efficient. If you have younger kids, note that children under 90cm ride for free.</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Airport Transfer:</strong> If landing at Suvarnabhumi (BKK), the Airport Rail Link is fast (45 THB/pax), but booking a Grab directly from the airport is highly recommended for a family of 4 to avoid hauling luggage up and down station stairs.
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-wallet"></i> Currency & Payments</h3>
+                <p>Cash is still king for street food and small markets.</p>
+                <br>
+                <ul style="margin-left: 1.5rem;">
+                    <li>You can withdraw Thai Baht from local ATMs using your <strong>GXBank</strong> or <strong>Wise</strong> card. Note: All Thai ATMs charge a flat 220 THB (~RM28) fee per transaction, so withdraw the maximum amount allowed in one go to minimize fees.</li>
+                    <li>Alternatively, bring MYR cash and exchange it at a green or orange <strong>SuperRich</strong> booth in the city for the best exchange rates.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="stay" class="tab-content">
+            <div class="card">
+                <h3><i class="fas fa-bed"></i> Recommended Areas for Families</h3>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--text-main);">1. Phaya Thai / Ratchathewi (Top Choice)</h4>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Directly on the Airport Rail Link line, making arrival and departure incredibly easy. Just one or two BTS stops from major shopping districts.</p>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--text-main);">2. Asok / Sukhumvit</h4>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">The intersection of the BTS (Skytrain) and MRT (Subway). Staying here means you rarely have to transfer lines, saving a lot of walking for the family.</p>
+                </div>
+
+                <div>
+                    <h4 style="color: var(--text-main);">3. Pratunam</h4>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Famous for wholesale clothing markets and cheap, excellent street food right outside your door. Highly walkable to CentralWorld.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="checklist" class="tab-content">
+            <div class="card">
+                <h3><i class="fas fa-suitcase-rolling"></i> Family Packing List</h3>
+                <p style="margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;">Click items to cross them off. (Resets on page reload)</p>
+                
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Passports (Valid for at least 6 months)</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Flight itineraries & Hotel confirmations</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Travel Cards (Wise / GXBank) & some MYR Cash</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Lightweight, breathable clothing (Cotton/Linen)</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Comfortable walking shoes (crucial for market days)</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Temple Wear: Pants/skirts covering knees, shirts covering shoulders</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Universal Power Adapters & Power Banks</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox">
+                    <span>Basic First Aid (Plasters, Panadol, Charcoal pills for stomach bugs)</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            // Remove active class from all buttons and content
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Add active class to clicked button and target content
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
